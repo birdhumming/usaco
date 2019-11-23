@@ -4,6 +4,13 @@ TASK: dualpal
 LANG: C++
 */
 
+/*
+    obj: find N numbers greater than S that are palindromic in at least 2 bases (2-10)
+    
+    in: int N, int S
+    out: N numbers greater than S
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,14 +26,14 @@ int is_pal(char *s);
 
 int main()
 {
-    int n, s;
+    int N, S;
     ifstream input1;
     input1.open("dualpal.in");
-    input1>>n;
-    input1>>s;
+    input1>>N;
+    input1>>S;
     input1.close();
 
-    int nums[n]; //stores answers
+    int nums[N]; //stores answers
 
     //test for base_conv
     /* 
@@ -52,7 +59,7 @@ int main()
    
   int bigcount = 0; //counts on outside loop (the i loop)
   char final[20];
-  for (int i = s + 1; bigcount < n; i++) //n numbers greater than s
+  for (int i = S + 1; bigcount < N; i++) //N numbers greater than s
     {
         //cout<<"i = " <<i<<"\n";
         int smallcount = 0; //counts on inside loop (the j loop), counts the >= 2
@@ -74,7 +81,7 @@ int main()
 
 
 ofstream outfile("dualpal.out");
-for (int i = 0; i < n; i++)
+for (int i = 0; i < N; i++)
 {
     outfile<<nums[i]<<"\n";
 }
