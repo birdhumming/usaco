@@ -35,12 +35,12 @@ int solve(void)
   if (i > N) {
     if (cycle_exists()) 
     {
-        cout<<"end1"<<endl;
+        //cout<<"end1"<<endl;
         return 1;
     }
     else 
     {
-        cout<<"end0"<<endl;
+        //cout<<"end0"<<endl;
         return 0;
     }
   }
@@ -48,12 +48,12 @@ int solve(void)
   for (int j=i+1; j<=N; j++)
     if (partner[j] == 0) {
       partner[i] = j;
-      cout<<i<<" "<<j<<endl;
-      cout<<endl;
+      //cout<<i<<" "<<j<<endl;
+      //cout<<endl;
       partner[j] = i;
       total += solve();
       partner[i] = partner[j] = 0;
-      cout<<total<<' '<<i<<" "<<j<<endl;
+      //cout<<total<<' '<<i<<" "<<j<<endl;
     }
   return total;
 }
@@ -77,3 +77,4 @@ int main(void)
   fout.close();
   return 0;
 }
+	
