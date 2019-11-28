@@ -44,7 +44,7 @@ int main(void)
     }
     input1.close();
 
-    sort(heights, heights + N);
+    //sort(heights, heights + N);
 
     int temp_low;
     int temp_high;
