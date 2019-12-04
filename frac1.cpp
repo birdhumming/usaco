@@ -17,12 +17,13 @@ LANG: C++
 
 using namespace std;
 
-typedef struct fraction //create type fraction
+class fraction //create type fraction
 {
+   public:
     int numerator;
     int denominator;
-    float dec = 1.0 * numerator/denominator;
-}fraction;
+    float dec;
+};
 
 
 int fracgen(int N); //fraction generator
