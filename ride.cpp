@@ -1,7 +1,7 @@
 /*
 ID: drayale1
 TASK: ride
-LANG: C++
+LANG: C++11
 */
 
 #include <iostream>
