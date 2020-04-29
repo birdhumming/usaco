@@ -14,7 +14,7 @@ LANG: C++
 
     description: two mathematical parts of problem
     no 1: bi-squares: p^2 + q^2. ex: 3^2 + 5^2 = 34
-            0 - p and q - M
+            0 - (p and q) - M
     no 2: arithmetic progression: a, a + b, a + 2b... a + nb
         n is length of progression (0, 1, 2...)
     given boundary of bisquare make-ups (p and q), find AP of length N in all possible
