@@ -77,6 +77,29 @@ int main()
         sort(Rs.begin(), Rs.end());
         int R = Rs[0] - 1;
 
-        
+
+
     }
+}
+int num_sick_clusters(void)
+{
+  int last_state = 0, answer = 0;
+  for (int i=0; i<=1000000; i++) 
+    if (A[i] != 0) {
+      if (A[i] != last_state && A[i] == 1) answer++;
+      last_state = A[i];
+    }
+  return answer;
+}
+
+int num_sick_gaps(int r)
+{
+  int answer = 0, current_start = 0;
+  for (int i=0; i<=1000000; i++) 
+    if (A[i] != 0) {
+      if (current_start!=0 && A[current_start]==1 && A[i]==1 && i-current_start>=r) 
+	    answer++;
+        current_start = i;
+    }
+  return answer;
 }
