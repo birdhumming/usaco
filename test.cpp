@@ -7,5 +7,7 @@ using namespace std;
 
 int main()
 {
-    cout << ceil((float)6/3) << endl;
+    int arr[101] = {0};
+    arr[5]++;
+    cout << arr[5] << endl;
 }
