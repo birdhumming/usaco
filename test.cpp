@@ -7,7 +7,10 @@ using namespace std;
 
 int main()
 {
-    int arr[101] = {0};
-    arr[5]++;
-    cout << arr[5] << endl;
+    int x = 1;
+    int y = 0;
+    if (x && y)
+    {
+        cout << "tomato" << endl;
+    }
 }
