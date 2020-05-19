@@ -34,14 +34,29 @@ int main() {
     for (int i=0; i<N; i++) {
         for (int j=i+1; j<N; j++) {
             //cout<<"comparing "<<i<<" and "<<j<<'\n';
-            for (int k=0; k<101; k++) {
-                if (track[i][k] && track[j][k]) {
+            if (i==23&&j==60) {
+                for (int k=0; k<101; k++) {
+                    if (track[i][k] && track[j][k]) {
+                        cout<<"both have trait "<<traits[k]<<'\n';
+                        tans++;
+                        cout<<"tans = "<<tans<<'\n';
+                    }
+                }
+            }
+            else {
+                for (int k=0; k<101; k++) {
+                    if (track[i][k] && track[j][k]) {
                     //cout<<"both have trait "<<traits[k]<<'\n';
-                    tans++;
+                        tans++;
+                    }
                 }
             }
             //cout<<tans<<'\n';
-            if (tans>ans) ans=tans;
+            if (tans>ans) 
+            {
+                ans=tans;
+                cout<<tans<<" "<<i<<" "<<j<<'\n';
+            }
             tans=0;
         }
     }
