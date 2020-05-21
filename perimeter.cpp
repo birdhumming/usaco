@@ -1,3 +1,7 @@
+/*
+problem: Farmer John is making ice cream.
+*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
