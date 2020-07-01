@@ -3,7 +3,18 @@
 #include <vector>
 using namespace std;
 
-int grid[1001][1001];
+typedef pair <int, int> ii;
+
+
+int main() 
+{
+    ii a, b;
+    a.first=3; a.second=4;
+    b.first=3; b.second=4;
+    if (a==b) cout<<"whatt\n";
+}
+
+/*int grid[1001][1001];
 int dr[4]={1, 0, -1, 0};
 int dc[4]={0, 1 ,0, -1};
 int N;
@@ -104,4 +115,4 @@ int main()
     cout << findperimeter(mat) << endl; 
   
     return 0; 
-} 
+} */
