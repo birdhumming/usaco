@@ -23,10 +23,14 @@ bool check(int a, int b, int c, int d)
     return true;
 }
 bool check2(int a, int b, int c, int d) {
-    if (xmin[a] == xmax[b])
+    if (xmin[a]==xmax[b]) return false;
+    if (ymin[c]==ymin[d]) return false;
+    return true;
 }
-int perim(int a, int b, int c, int d) {
-    return (b-a)*(d-c);
+long area(int a, int b, int c, int d) {
+    int w=xmax[b].first; int x=xmin[a].first;
+    int y=ymax[d].second; int z=ymin[c].second;
+    return (w-x)*(y-z);
 }
 
 int main()
@@ -43,16 +47,20 @@ int main()
         ymin[i]=pos[i];
         ymax[i]=pos[N-i-1];
     }
-    int ans=1600000002; 
+    long ans=1600000002; 
     for (int a=0; a<4; a++) {
         for (int b=0; b<4; b++) {
             for (int c=0; c<4; c++) {
                 for (int d=0; d<4; d++) {
-                    if (check(a, b, c, d)) {
-                        if (perim(a, b, c, d) >= 0 && !coords_same(a, b, c, d)) {
-                            //cout<<a<<" "<<b<<" "<<c<<" "<<d<<'\n';
+                    if (check(a, b, c, d) && check2(a, b, c, d)) {
+                        if (area(a, b, c, d) >= 0) {
+                            /*cout<<xmin[a].first<<" "<<xmin[a].second<<'\n';
+                            cout<<xmax[b].first<<" "<<xmax[b].second<<'\n';
+                            cout<<xmax[c].first<<" "<<xmax[c].second<<'\n';
+                            cout<<xmax[d].first<<" "<<xmax[d].second<<'\n';
+                            cout<<"END\n";*/
                             //cout<<perim(a, b, c, d)<<'\n';
-                            ans=min(ans, perim(a, b, c, d));
+                            ans=min(ans, area(a, b, c, d));
                         }
                     }
                 }

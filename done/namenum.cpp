@@ -18,34 +18,22 @@ string namenum(string s, int n);
 int main()
 {
     string n;
-    ifstream input1;
-    input1.open("namenum.in");
-    input1>>n;
-    input1.close();
-    ofstream outfile("namenum.out");
-    string n_string = n;
-
-    ifstream input2;
-    input2.open("dict.txt");
-
+    cin>>n;
     int check = 0;
-    for (int i = 0; i < 4617; i++)
-    {
+    while (!cin.eof()) {
         string y;
-        input2>>y;
+        cin>>y;
         int x = y.length();
-        if (n_string == namenum(y, x))
+        if (n == namenum(y, x))
         {
-            cout<<y<<endl;
-            outfile<<y<<endl;
+            cout<<y<<'\n';
             check++;
         }
     }
     if (check == 0)
     {
-        outfile<<"NONE"<<endl;
+        cout<<"NONE\n";
     }
-    input2.close();
 
     return 0;
 }
