@@ -1,18 +1,27 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <set>
+#include <iterator>
 using namespace std;
 
 typedef pair <int, int> ii;
+typedef pair <int, pair<int, int> > iii;
 
-
+void print_iii(iii a) {
+    cout<<a.first<<" "<<a.second.first<<" "<<a.second.second<<'\n';
+}
 int main() 
 {
-    ii a, b;
-    a.first=3; a.second=4;
-    b.first=3; b.second=4;
-    if (a==b) cout<<"whatt\n";
+    set <iii> h;
+    iii temp; temp.first=1; temp.second.first=2; temp.second.second=3;
+    h.insert(temp);
+
+    set <iii>::iterator iter=h.begin();
+    print_iii(*iter);
+
 }
+
 
 /*int grid[1001][1001];
 int dr[4]={1, 0, -1, 0};
