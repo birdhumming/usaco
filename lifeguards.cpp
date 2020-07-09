@@ -9,6 +9,7 @@ int n;
 vector <ii> lg;
 vector <ii> first, second;
 vector <ii> all;
+vector <bool> started;
 
 bool within()
 {
@@ -21,6 +22,7 @@ bool within()
 int main()
 {
     cin>>n;
+    started.resize(N+1);
     for (int i=0; i<n; i++) {
         int x, y;
         cin>>x>>y;

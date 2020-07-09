@@ -69,6 +69,7 @@
         "typeinfo": "cpp",
         "set": "cpp",
         "unordered_set": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "queue": "cpp"
     }
 }
