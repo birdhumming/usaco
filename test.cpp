@@ -13,12 +13,19 @@ void print_iii(iii a) {
 }
 int main() 
 {
-    set <iii> h;
-    iii temp; temp.first=1; temp.second.first=2; temp.second.second=3;
-    h.insert(temp);
-
-    set <iii>::iterator iter=h.begin();
-    print_iii(*iter);
+    int N=10;
+    bool flag=false;
+    string start="1010101010";
+    for (int i=0; i<N; i++) {
+        if (on[i] && start[i]=='0') flag=false;
+                            
+        if (off[i] && start[i]=='1') {
+            flag=false;
+        }
+        if (flag) {
+            ans.insert(start);
+        }
+    }
 
 }
 
