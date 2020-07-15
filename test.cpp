@@ -13,19 +13,10 @@ void print_iii(iii a) {
 }
 int main() 
 {
-    int N=10;
-    bool flag=false;
-    string start="1010101010";
-    for (int i=0; i<N; i++) {
-        if (on[i] && start[i]=='0') flag=false;
-                            
-        if (off[i] && start[i]=='1') {
-            flag=false;
-        }
-        if (flag) {
-            ans.insert(start);
-        }
-    }
+    int a='z';
+    int x='A';
+    cout<<a<<'\n';
+    cout<<x<<'\n';
 
 }
 
