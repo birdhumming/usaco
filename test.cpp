@@ -13,10 +13,7 @@ void print_iii(iii a) {
 }
 int main() 
 {
-    int a='z';
-    int x='A';
-    cout<<a<<'\n';
-    cout<<x<<'\n';
+    cout<<5/2<<'\n';
 
 }
 
