@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iostream>
 using namespace std;
 
 int n, queen[100];
