@@ -1,43 +1,51 @@
 #include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <vector>
+#include <queue>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <unordered_set>
+#include <stack>
+#include <string>
+#include <cstring>
+#include <algorithm>
 using namespace std;
-typedef pair <int, int> ii;
+typedef pair<int, int> ii;
 
-int N, Q;
-int cows1[100002]; 
-int cows2[100002]; 
-int cows3[100002]; 
-ii qs[100002];
+int n, q;
+vector<int> h, g, j;
 
-int main()
-{
-    cows1[0]=0; cows2[0]=0; cows3[0]=0;
-    cin>>N>>Q;
-    int x;
-    for (int i=1; i<=N; i++) {
-        cin>>x;
-        if (x==1) {
-            cows1[i]++;
-        }
-        if (x==2) {
-            cows2[i]++;
-        }
-        if (x==3) {
-            cows3[i]++;
-        }
-        cows1[i]+=cows1[i-1];
-        cows2[i]+=cows2[i-1];
-        cows3[i]+=cows3[i-1];
+int main() {
+    freopen("bcount.in", "r", stdin);
+    freopen("bcount.out", "w", stdout);
+
+    scanf("%d%d", &n, &q);
+    h.resize(n + 10, 0), g.resize(n + 10, 0), j.resize(n + 10, 0);
+
+    for (int i = 1; i <= n; i++) {
+        int id; scanf("%d", &id);
+        if (id == 1) h[i] = 1;
+        if (id == 2) g[i] = 1;
+        if (id == 3) j[i] = 1;
     }
-    for (int i=0; i<Q; i++) {
-        int a, b;
-        cin>>a>>b;
-        if (a>b) {
-            cout<<cows1[a]-cows1[b-1]<<" "<<cows2[a]-cows2[b-1]<<" "<<cows3[a]-cows3[b-1];
-        }
-        if (b>=a) {
-            cout<<cows1[b]-cows1[a-1]<<" "<<cows2[b]-cows2[a-1]<<" "<<cows3[b]-cows3[a-1];
-        }
-        cout<<'\n';
+
+    vector<int> ph(n + 10, 0), pg(n + 10, 0), pj(n + 10, 0);
+    for (int i = 1; i <= n; i++) {
+        ph[i] = ph[i - 1] + h[i];
+        pg[i] = pg[i - 1] + g[i];
+        pj[i] = pj[i - 1] + j[i];
     }
-    
+
+    while (q--) {
+        int a, b; scanf("%d%d", &a, &b);
+        int nh = ph[b] - ph[a - 1];
+        int ng = pg[b] - pg[a - 1];
+        int nj = pj[b] - pj[a - 1];
+        cout<<nh<<' '<<ng<<' '<<nj<<endl;
+    }
+
+    return 0;
 }

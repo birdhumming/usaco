@@ -119,6 +119,5 @@ int main()
         sort(ans.begin(), ans.end());
         outfile << ans[ans.size()-1] << endl;
 
-
     }
 }
