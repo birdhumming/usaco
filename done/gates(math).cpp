@@ -25,6 +25,8 @@ bool eunvisited(pair <ii, ii> a)
 
 int main()
 {
+    freopen("gates.in", "r", stdin);
+    freopen("gates.out", "w", stdout);
     int N; cin>>N;
     string s;
     cin>>s;

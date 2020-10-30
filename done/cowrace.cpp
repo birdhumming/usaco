@@ -5,6 +5,7 @@ typedef pair<int, int> ii;
 
 int N, M;
 vector<ii> b, e;
+vectr<int> test;
 
 int main()
 {

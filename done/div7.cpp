@@ -1,25 +1,50 @@
 #include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <cmath>
+#include <vector>
+#include <queue>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <unordered_set>
+#include <stack>
+#include <string>
+#include <cstring>
+#include <algorithm>
 using namespace std;
+typedef pair<int, int> ii;
 
-int N;
-int cows[50002];
-int track[7];
+int n;
+int first_seen[10];
 
-int main()
-{
-    cin>>N;
-    int a;
-    for (int i=1; i<=N; i++) {
-        cin>>a; a=a%7; cows[i]=a;
-        cows[i]+=cows[i-1];;
+int main() {
+    freopen("div7.in", "r", stdin);
+    freopen("div7.out", "w", stdout);
+    scanf("%d", &n);
+    memset(first_seen, -1, sizeof first_seen);
+
+    if (n == 1) {
+        int x; scanf("%d", &x);
+        if (x % 7 == 0) puts("1");
+        else puts("0");
+        return 0;
     }
-    int ans=0;
-    for (int i=1; i<=N; i++) {
-        a=cows[i]%7;
-        if (track[a]==0) { track[a] = i; }
-        if (track[a] != 0) {
-            ans=max(ans, i-track[a]);
-        }
+
+    int last = 0, cur = 0, ans = 0;
+    for (int i = 1; i <= n; i++) {
+        int x; scanf("%d", &x);
+        
+        cur = (last + x) % 7;
+        last = cur;
+        if (first_seen[cur] != -1) {
+            int first = first_seen[cur];
+            ans = max(ans, i - first);
+        } 
+        else first_seen[cur] = i;
     }
-    cout<<ans<<'\n';
+
+    printf("%d\n", ans);
+
+    return 0;
 }
