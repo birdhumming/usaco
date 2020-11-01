@@ -42,6 +42,8 @@ void clear()
 
 int main()
 {
+    freopen("moocast.in", "r", stdin);
+    freopen("moocast.out", "w", stdout);
     cin>>N; 
     for (int i=1; i<=N; i++) {
         int x, y, r; cin>>x>>y>>r;

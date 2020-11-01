@@ -13,7 +13,10 @@
 #include <cstring>
 #include <algorithm>
 using namespace std;
-typedef pair<int, int> ii;
+#define ii pair<int, int>;
+#define ll long long;
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
 
 int main() {
     freopen("", "r", stdin);
