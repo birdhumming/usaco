@@ -16,7 +16,12 @@ int dy[4] = {0, 1, 0, -1};
 int ddx[8] = {1, 0, -1, -1, -1, 0, 1, 1};
 int ddy[8] = {1, 1, 1, 0, -1, -1, -1, 0};
 
+string s; ll n;
+
 int main() {
-    freopen("", "r", stdin);
-    freopen("", "w", stdout);
+    //freopen("cowcode.in", "r", stdin);
+    //freopen("cowcode.out", "w", stdout);
+    cin >> s >> n;
+
+    
 }
