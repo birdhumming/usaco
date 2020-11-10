@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <unordered_map>
 using namespace std;
 
 #define ii pair<int, int>
@@ -23,17 +24,25 @@ unordered_map<int, bool> is_broken;
 //sliding window
 
 int main() {
-    //freopen("maxcross.in", "r", stdin);
-    //freopen("maxcross.out", "w", stdout);
+    freopen("maxcross.in", "r", stdin);
+    freopen("maxcross.out", "w", stdout);
     scanf("%d%d%d", &n, &k, &b);
     FOR(b) {
         int x; scanf("%d", &x);
         broken.pb(x);
         is_broken[x] = true;
     }
-    sort(broken.begin(), broken.end());
 
-    vector<int> window;
     int sum = 0;
     for (int i = 1; i <= k; i++) sum += is_broken[i];
+    
+    int ans = sum;
+    for (int i = 2; i + k - 1 <= n; i++) {
+        if (is_broken[i - 1]) sum--;
+        if (is_broken[i + k - 1]) sum++;
+        //cout << "i = "<<i<<", sum = "<<sum<<endl;
+        ans = min(ans, sum);
+    }
+    cout << ans << endl;
+    return 0;
 }

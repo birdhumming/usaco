@@ -29,7 +29,26 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-int main() {
-    freopen("", "r", stdin);
-    freopen("", "w", stdout);
+int n;
+unordered_map<int, vi> cnt;
+
+int main()
+{
+    freopen("planting.in", "r", stdin);
+    freopen("planting.out", "w", stdout);
+    scanf("%d", &n);
+    FOR(n - 1) {
+        int a, b; scanf("%d%d", &a, &b);
+        cnt[a].pb(b);
+        cnt[b].pb(a);
+    }
+
+    int max_deg = 0;
+    for(auto x : cnt) {
+        vi v = x.second;
+        int size = v.size();
+        max_deg = max(max_deg, size);
+    }
+    cout<<max_deg + 1<<endl;
+    return 0;
 }

@@ -4,6 +4,7 @@ using namespace std;
 int N, K, B;
 int road[100002];
 
+//using prefix sum
 int main()
 {
     cin>>N>>K>>B;

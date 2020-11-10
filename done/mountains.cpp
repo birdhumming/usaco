@@ -29,7 +29,39 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
+const int N = 1e5 + 10;
+int n;
+vector<ii> peaks;
+vi sub, add, label;
+
+bool comp(int a, int b) {
+    if (sub[a] == sub[b])
+        return add[a] > add[b];
+    return sub[a] < sub[b];
+}
+
 int main() {
-    freopen("", "r", stdin);
-    freopen("", "w", stdout);
+    freopen("mountains.in", "r", stdin);
+    freopen("mountains.out", "w", stdout);
+    scanf("%d", &n); peaks.rz(n);
+    FOR(n) {
+        int a, b; scanf("%d%d", &a, &b);
+        peaks[i].f = a, peaks[i].s = b;
+        sub.pb(a - b);
+        add.pb(a + b);
+        label.pb(i);
+    }
+
+    sort(label.begin(), label.end(), comp);
+
+    int x_pos = -1, ans = 0;
+    FOR(n) {
+        int j = label[i];
+        if (add[j] > x_pos) {
+            x_pos = add[j];
+            ans++;
+        }
+    }
+    cout<<ans<<endl;
+    return 0;
 }

@@ -29,7 +29,7 @@ int main() {
     }
     FOR(n) {
         int a, b; scanf("%d%d", &a, &b);
-        ab.pb(mp(a, b));
+        ab.pb(mp(b, a));
     }
     //cout << "hi\n";
 
@@ -37,14 +37,19 @@ int main() {
     int ans = 0;
 
     for (auto cow : ab) {
-        int a = cow.first, b = cow.second;
-        auto chicken = t.upper_bound(a);
+        //cout << cow.first << ' '<< cow.second<<endl;
+    }
+
+    for (auto cow : ab) {
+        int a = cow.second, b = cow.first;
+        auto chicken = t.lower_bound(a);
         if (chicken != t.end() && *chicken <= b) {
             //cout<<"chicken = "<<*chicken<<endl;
             ans++;
             t.erase(chicken);
         }
     }
+    
     cout << ans << endl;
     return 0;
 }

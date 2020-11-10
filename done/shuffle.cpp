@@ -21,6 +21,8 @@ void run(int i)
 
 int main()
 {
+    freopen("shuffle.in", "r", stdin);
+    freopen("shuffle.out", "w", stdout);
     cin>>N;
     indegrees.resize(N+1);
     out.resize(N+1);
