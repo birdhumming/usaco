@@ -31,21 +31,23 @@ bool in_bounds(int x, int y, int n, int m) {
 
 ll n, k, m;
 
-int valid(ll x, ll k) {
-  ll g = 0;
-  while(k > 0 && g < n) {
-    ll y = (n - g) / x;
-    if(y < m) {
-      ll leftover = (n-g + m-1) / m;
-      return leftover <= k;
+int works(ll x, ll k) {
+    ll milk_left = n;
+
+    while (k > 0 && milk_left >= 0) {
+    ll y = milk_left / x;
+    if (y < m) {
+      ll stu = (milk_left + m - 1) / m;
+      return stu <= k;
     }
-    ll maxmatch = n - x*y;
-    ll numdays = (maxmatch - g) / y + 1;
-    if(numdays > k) numdays = k;
-    g += y * numdays;
-    k -= numdays;
+
+    ll ma = n - x * y;
+    ll days = (ma - milk_left) / y + 1;
+    if (days > k) days = k;
+    milk_left -= y * days;
+    k -= days;
   }
-  return g >= n;
+  return milk_left <= 0;
 }
  
 
@@ -59,7 +61,7 @@ int main() {
     while (l < r) {
         //cout<<"l = "<<l<<", r = "<<r<<endl;
         long long mid = l + r + 1 >> 1;
-        if (valid(mid, k)) l = mid;
+        if (works(mid, k)) l = mid;
         else r = mid - 1;
     }
     cout<<l<<endl;
