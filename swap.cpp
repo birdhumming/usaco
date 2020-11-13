@@ -11,6 +11,8 @@ using namespace std;
 #define pb push_back
 #define rz resize
 #define mp make_pair
+#define f first
+#define s second
 
 #define FOR(n) for (int i = 0; i < n; i++)
 #define FOR1(n) for (int i = 1; i <= n; i++)
@@ -27,11 +29,16 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-
+int n, m, k;
+vi cows;
 
 int main() {
-    //freopen("", "r", stdin);
-    //freopen("", "w", stdout);
-    cout<<2/5<<endl;
-}
+    //freopen("swap.in", "r", stdin);
+    //freopen("swap.out", "w", stdout);
+    scanf("%d%d%d", &n, &m, &k); cows.rz(n + 1); cows[0] = 0;
+    FOR1(n) cows[i] = i;
+    FOR(m) {
+        int l, r; scanf("%d%d", &l, &r);
+    }
 
+}
