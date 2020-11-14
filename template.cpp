@@ -11,8 +11,8 @@ using namespace std;
 #define pb push_back
 #define rz resize
 #define mp make_pair
-#define f first
-#define s second
+#define ff first
+#define ss second
 
 #define FOR(n) for (int i = 0; i < n; i++)
 #define FOR1(n) for (int i = 1; i <= n; i++)

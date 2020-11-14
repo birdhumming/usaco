@@ -28,6 +28,8 @@ void clear()
 
 int main()
 {
+    freopen("mootube.in", "r", stdin);
+    freopen("mootube.out", "w", stdout);
     cin>>N>>Q;
     for (int i=0; i<N-1; i++) {
         int p, q, r; cin>>p>>q>>r;

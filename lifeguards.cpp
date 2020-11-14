@@ -29,37 +29,37 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-const int N = 1e5 + 10;
-int n;
-int minY[N], maxY[N];
-ii coords[N];
+int n, ans, sr, res = 1e8, rr, s;
+ii a[100010];
+
 
 int main() {
-    freopen("moop.in", "r", stdin);
-    freopen("moop.out", "w", stdout);
-    scanf("%d", &n);
-    FOR(n) scanf("%d%d", &coords[i].ff, &coords[i].ss);
-    sort(coords, coords + n);
+    freopen("lifeguards.in", "r", stdin);
+    freopen("lifeguards.out", "w", stdout);
+    scanf("%d", &n); 
+    FOR1(n) scanf("%d%d", &a[i].ff, &a[i].ss);
+    sort(a + 1, a + n + 1);
 
-    minY[0] = coords[0].second;
-    maxY[n - 1] = coords[n - 1].second;
-
-    for (int i = 1; i < n; i++) {
-        minY[i] = min(minY[i - 1], coords[i].ss);
+    FOR1(n) {
+        if (a[i].ss > sr) {
+            rr = max(sr, a[i].ff);
+            ans += a[i].ss - rr;
+            sr = a[i].ss;
+        }
+    } 
+    sr = 0, a[n + 1].ff = a[n].ss;
+    FOR1(n) {
+        if (a[i].ss <= sr) res = 0;
+        else {
+            s = min(a[i + 1].ff, a[i].ss) - max(a[i].ff, sr);
+            res = min(res, s);
+            sr = max(a[i].ss, sr);
+        }
     }
-    for (int i = n - 2; i >= 0; i--) {
-        maxY[i] = max(maxY[i + 1], coords[i].ss);
-    }
 
-    FOR(n) cout<<minY[i]<<' ';
-    cout<<endl;
-    FOR(n) cout<<maxY[i]<<' ';
-    cout<<endl;
-
-    int ans = 1;
-    for (int i = 0; i < n - 1; i++) {
-        if (minY[i] > maxY[i + 1]) ans++;
-    }
-    cout<<ans<<endl;
+    res = max(0, res);
+    cout<<ans - res<<endl;
     return 0;
 }
+
+

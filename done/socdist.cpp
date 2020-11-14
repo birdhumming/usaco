@@ -31,26 +31,27 @@ bool in_bounds(int x, int y, int n, int m) {
 }
 
 int n, m;
-vector<pair<ull, ull> > intervals;
+vector<pair<ll, ll> > intervals;
 
-bool works(ull d) {
+bool works(ll d) {
+    ll last = (ll)-2 * 1e18;
+    
     int cows = 0;
-    ull last = -2 * 1e18;
-    FOR(m) {
-        ull a = intervals[i].f, b = intervals[i].s;
-        while (max(last + d, a) <= b) {
-            last = max(last + d, a);
+    for (auto& i : intervals) {
+        while (max(last + d, i.f) <= i.s) {
+            last = max(last + d, i.f);
             cows++;
             if (cows >= n) break;
         }
         if (cows >= n) break;
     }
-    return cows >= n;
+ 
+    return (cows >= n);
 }
 
 int main() {
-    //freopen("socdist.in", "r", stdin);
-    //freopen("socdist.out", "w", stdout);
+    freopen("socdist.in", "r", stdin);
+    freopen("socdist.out", "w", stdout);
     scanf("%d%d", &n, &m); intervals.rz(m);
     FOR(m) {
         cin >> intervals[i].f >> intervals[i].s;
@@ -58,13 +59,13 @@ int main() {
 
     sort(intervals.begin(), intervals.end());
 
-    ull l = 1, r = intervals[m - 1].s;
+    ll l = 1, r = intervals[m - 1].s;
     //cout<<"l = "<<l<<", r = "<<r<<endl;
-    int ans = 0;
+    int ans = -1;
     while (l <= r) {
-        cout<<"l = "<<l<<", r = "<<r<<endl;
-        ull mid = (l + r) >> 1;
-        cout<<"mid = "<<mid<<endl;
+        //cout<<"l = "<<l<<", r = "<<r<<endl;
+        ll mid = (l + r) / 2;
+        //cout<<"mid = "<<mid<<endl;
         if (works(mid)) {
             ans = mid;
             l = mid + 1;
