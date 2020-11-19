@@ -8,6 +8,7 @@ using namespace std;
 #define ll long long
 #define vi vector<int>
 #define vc vector<char>
+#define vii vector<ii>
 #define pb push_back
 #define rz resize
 #define mp make_pair

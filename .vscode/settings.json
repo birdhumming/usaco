@@ -76,6 +76,14 @@
         "ranges": "cpp",
         "span": "cpp",
         "regex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "random": "cpp",
+        "any": "cpp",
+        "*.tcc": "cpp",
+        "future": "cpp",
+        "shared_mutex": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp",
+        "variant": "cpp"
     }
 }
