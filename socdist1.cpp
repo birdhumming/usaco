@@ -8,9 +8,12 @@ using namespace std;
 #define ll long long
 #define vi vector<int>
 #define vc vector<char>
+#define vii vector<ii>
 #define pb push_back
 #define rz resize
 #define mp make_pair
+#define ff first
+#define ss second
 
 #define FOR(n) for (int i = 0; i < n; i++)
 #define FOR1(n) for (int i = 1; i <= n; i++)
@@ -27,16 +30,14 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-struct node {
-    int a, b;
-    int x, y;
-    if (a > x) swap(a, x), swap(b, y);
-};
+const int N = 1e5 + 10;
+int n;
+char s[N];
 
 int main() {
-    //freopen("", "r", stdin); 
-    //freopen("", "w", stdout);
-    int x = 110;
-	int y = x & -x;
-	cout<<y <<endl;
+    //freopen("socdist1.in", "r", stdin);
+    //freopen("socdist1.out", "w", stdout);
+    scanf("%d\n%s", &n, s);
+    FOR()
+    return 0;
 }
