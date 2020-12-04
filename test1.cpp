@@ -1,39 +1,27 @@
-#include <bits/stdc++.h>
-#include <unordered_map>
-#include <unordered_set>
-
+#include <iostream>
+#include <algorithm>
+#include <cstdio>
+#include <vector>
 using namespace std;
-
-#define ii pair<int, int>
 #define ll long long
-#define vi vector<int>
-#define vc vector<char>
-#define vii vector<ii>
-#define pb push_back
-#define rz resize
-#define mp make_pair
-#define ff first
-#define ss second
 
-#define FOR(n) for (int i = 0; i < n; i++)
-#define FOR1(n) for (int i = 1; i <= n; i++)
-#define RFOR(n) for (int i = n - 1; i >= 0; i--)
-#define DFOR(n, m) FOR(n) for (int j = 0; j < m; j++)
-
-int dx[4] = {1, 0, -1, 0}; 
-int dy[4] = {0, 1, 0, -1};
-int ddx[8] = {1, 0, -1, -1, -1, 0, 1, 1};
-int ddy[8] = {1, 1, 1, 0, -1, -1, -1, 0};
-
-bool in_bounds(int x, int y, int n, int m) {
-    if (x >= 0 && x < n && y >= 0 && y < m) return true;
-    return false;
+ll qexp(ll x, ll y) {
+    ll ans = 1;
+    int pow = 1;
+    while (y) {
+        cout << "y = "<<y<<endl;
+        cout << "x = "<<x<<endl;
+        cout << "pow = "<<pow<<endl;
+        if (y & 1) ans = ans * x;
+        x *= x;
+        pow++;
+        y >>= 1;
+    }
+    return ans;
 }
 
-int n, b;
-
 int main() {
-    freopen("trapped.in", "r", stdin);
-    freopen("trapped.out", "w", stdout);
-    scanf("%d%d", &n, &b);
+    
+    ll res = qexp(14, 5);
+    cout << res << endl;
 }

@@ -15,8 +15,8 @@ int main() {
         pastures[a].push_back(b);
         pastures[b].push_back(a);
     }
-    vector<int> ans(N+1, -1);
-    for (int i=1; i<=N; i++) {
+    vector<int> ans(N + 1, -1);
+    for (int i=1; i <= N; i++) {
         int grass[5]={0, 0, 0, 0, 0};
         vector<int> v=pastures[i];
         if (v.size()==0) ans[i]=1;

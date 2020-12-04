@@ -30,14 +30,7 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-const int N = 1e5 + 10;
-int n;
-char s[N];
-
 int main() {
-    //freopen("socdist1.in", "r", stdin);
-    //freopen("socdist1.out", "w", stdout);
-    scanf("%d\n%s", &n, s);
-    FOR()
-    return 0;
+    freopen("triangles.in", "r", stdin);
+    freopen("triangles.out", "w", stdout);
 }
