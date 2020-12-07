@@ -1,0 +1,4 @@
+1. check array/variable names - are you using correct ones?
+2. mixing up i and j?
+3. bad memory - (i - 1) when i = 0?
+4. check function should also check if number is in range
