@@ -30,9 +30,12 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-const int N = 30;
+const int N = 30, M = N * N;
 int n;
 vector<string> sub[N];
+unordered_map<string, vector<int> > groups;
+vector<int> traits;
+bool before[N][N];
 
 
 int main() {
@@ -44,8 +47,19 @@ int main() {
         for (int j = 0; j < k; j--) {
             string s; cin >> s;
             sub[i].pb(s);
+            traits.pb(s);
+            groups[s].pb(i); //might need to use unique
         }
     }
 
-    
+    sort(traits.begin(), traits.end());
+    traits.erase(unique(traits.begin(), traits.end()), traits.end()); //remove duplicates
+
+    for (string t : traits) {
+        for (int x : groups[t]) {
+            for (string u : sub[x]) {
+                
+            }
+        }
+    }
 }
