@@ -30,25 +30,25 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-int n, k;
-int a1, a2, b1, b2;
-
-int pos_calc(int i) {
-    if (a1 <= i && i <= a2) i = a1 + a2 - i;
-    if (b1 <= i && i <= b2) i = b1 + b2 - i;
-    return i;
-}
+const int N = 110;
+int n;
+int a[N], b[N], c[N];
 
 int main() {
-    freopen("swap.in", "r", stdin);
-    freopen("swap.out", "w", stdout);
-    cin >> n >> k;
-    cin >> a1 >> a2 >> b1 >> b2;
+    freopen("shuffle.in", "r", stdin);
+    freopen("shuffle.out", "w", stdout);
+    cin >> n;
+    for (int i = 1; i <= n; i++) cin >> a[i];
+    for (int i = 1; i <= n; i++) cin >> b[i];
 
-    for (int i = 1; i <= n; i++) {
-        int x = i;
-        for (int j = 0; j < k; j++) x = pos_calc(x);
-        cout << x << endl;
+
+    for (int x = 0; x < 3; x++) {
+        for (int i = 1; i <= n; i++) {
+            //cout << "i = "<<i<<", a[i] = "<<a[i]<<endl;
+            c[i] = b[a[i]];
+        }
+        for (int i = 1; i <= n; i++) b[i] = c[i];
     }
+    for (int i = 1; i <= n; i++) cout << c[i] << endl;
     return 0;
 }

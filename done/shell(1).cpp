@@ -30,36 +30,32 @@ bool in_bounds(int x, int y, int n, int m) {
     return false;
 }
 
-const int N = 30, M = N * N;
+const int N = 110;
 int n;
-vector<string> sub[N];
-unordered_map<string, vector<int> > groups;
-vector<int> traits;
-bool before[N][N];
-
+ii swaps[N];
+int guesses[N];
 
 int main() {
-    //freopen("evolution.in", "r", stdin);
-    //freopen("evolution.out", "w", stdout);
+    freopen("shell.in", "r", stdin);
+    freopen("shell.out", "w", stdout);
     cin >> n;
-    for (int i = 1; i <= n; i++) {
-        int k; cin >> k;
-        for (int j = 0; j < k; j--) {
-            string s; cin >> s;
-            sub[i].pb(s);
-            traits.pb(s);
-            groups[s].pb(i); //might need to use unique
+    for (int i = 0; i < n; i++) 
+        cin >> swaps[i].ff >> swaps[i].ss >> guesses[i];
+
+    int ans = 0;
+    for (int s = 1; s <= 3; s++) {
+        int tmp = 0, shell = s;
+        for (int i = 0; i < n; i++) {
+            int a = swaps[i].ff, b = swaps[i].ss;
+            int g = guesses[i];
+            if (a == shell) shell = b;
+            else if (b == shell) shell = a;
+            if (g == shell) tmp++;
         }
+        ans = max(tmp, ans);
     }
 
-    sort(traits.begin(), traits.end());
-    traits.erase(unique(traits.begin(), traits.end()), traits.end()); //remove duplicates
+    cout << ans << endl;
 
-    for (string t : traits) {
-        for (int x : groups[t]) {
-            for (string u : sub[x]) {
-                
-            }
-        }
-    }
+    return 0;
 }
