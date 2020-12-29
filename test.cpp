@@ -1,110 +1,48 @@
 #include <iostream>
-using namespace std;
-
-const int N = 55;
-int f[N];
-bool st[100];
-
-bool mod[100];
-
-int check(int x) {
-    int res = 1;
-    for (int i = 1; i < x; i++) {
-        if ((x + i) % 7) res++;
-    }
-    return res;
-}
-
-int check2(int x) {
-    for (int start = 0; start < 7; start++) {
-        
-    }
-}
-
-int main() {
-    for (int i = 1; i <= 50; i++) {
-        f[i] = max(f[i - 1], check(i));
-    }
-
-    for (int i = 0; i <= 50; i++) cout << f[i] << endl;
-
-    return 0;
-}
-
- 
-#include <iostream>
 #include <algorithm>
+#include <map>
+#include <queue>
+#include <vector>
+#include <set>
 using namespace std;
  
-bool usedCow[100];
-bool usedPos[100];
-int pos[100];
+typedef pair<int, int> ii;
+typedef long long ll;
+
+const int N = 2 * 1e5 + 10;
+int x, n, p[N], tmp[N];
+priority_queue<ll> heap;
+set<ll> lights;
+vector<ll> ans;
  
- 
-int nCows, M, nFixed;
- 
-int ord[100];
- 
-int cFixed[101];
-int pFixed[101];
- 
-bool works()
-{
-	for(int i=0;i<nCows;i++)
-		usedCow[i] = usedPos[i] = 0;
-	for(int i=0;i<nFixed;i++)
-	{
-		if(usedCow[cFixed[i]] && pos[cFixed[i]] == pFixed[i]) continue;
-		if(usedCow[cFixed[i]]) return 0;
-		if(usedPos[pFixed[i]]) return 0;
-		usedCow[cFixed[i]] = 1;
-		usedPos[pFixed[i]] = 1;
-		pos[cFixed[i]] = pFixed[i];
-	}
-	int j = 0;
-	for(int i=0;i<M;i++)
-	{
-		int cow = ord[i];
-		if(usedCow[cow])
-		{
-			if(j > pos[cow]) return 0;
-			j = pos[cow];
-			continue;
-		}
-		while(usedPos[j])
-		{
-			j++;
-			if(j == nCows)
-				return 0;
-		}
-		usedPos[j] = 1;
-		pos[cow] = j;
-	}
-	return 1;
+int main() {
+    cin >> x >> n;
+    lights.insert(0); lights.insert(x);
+    for (int i = 0; i < n; i++) {
+        cin >> p[i];
+        tmp[i] = p[i];
+        lights.insert(p[i]);
+    }
+    
+    sort(tmp, tmp + n);
+    for (int i = 1; i < n; i++) heap.push(tmp[i] - tmp[i - 1]);
+    heap.push(tmp[0]);
+    heap.push(x - tmp[n - 1]);
+    ans.push_back(heap.top());
+    
+    for (int i = n - 1; i >= 0; i--) {
+        //cout << "p[i] = "<<p[i]<<endl;
+        auto upper = lights.upper_bound(p[i]);
+        auto lower = lights.lower_bound(p[i]);
+        lower--;
+        lights.erase(lights.find(p[i]));
+        ll dist = *upper - *lower;
+        heap.push(dist);
+        if (i) ans.push_back(heap.top());
+    }
+
+    reverse(ans.begin(), ans.end());
+    for (int x : ans) cout << x << " ";
 }
- 
-int main()
-{
-	cin >> nCows >> M >> nFixed;
-	for(int i=0;i<M;i++)
-	{
-		cin >> ord[i];
-		ord[i]--;
-	}
-	for(int i=0;i<nFixed;i++)
-	{
-		cin >> cFixed[i] >> pFixed[i];
-		cFixed[i]--, pFixed[i]--;
-	}
-	nFixed++;
-	for(int i=0;i<nCows;i++)
-	{
-		cFixed[nFixed-1] = 0;
-		pFixed[nFixed-1] = i;
-		if(works())
-		{
-			cout << i+1 << '\n';
-			return 0;
-		}
-	}
-}
+
+//do it backwards!
