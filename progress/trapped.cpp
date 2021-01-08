@@ -46,14 +46,12 @@ int main() {
         haybales.insert(mp(p, s));
     }
 
-    for (auto x : haybales) cout<<x.ff << ' '<<x.ss<<endl;
-
     int ans = -1;
     while (haybales.size() > 1) {
-        cout<<"SSTRATING\n";
+        //cout<<"SSTRATING\n";
         for (auto x : haybales) cout<<x.ff << ' '<<x.ss<<endl;
         ii x = mp(b, 0);
-        auto l = upper_bound(haybales.begin(), haybales.end(), x);
+        auto l = lower_bound(haybales.begin(), haybales.end(), x);
         l--;
         cout<<"l first "<<l->first<<", l second "<<l->second<<endl;
         auto r = upper_bound(haybales.begin(), haybales.end(), x);

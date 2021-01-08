@@ -20,5 +20,5 @@ int main() {
         ans = min(tmp, ans);
     }
 
-    cout << ans <<endl;
+    cout << ans << endl;
 }
