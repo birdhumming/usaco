@@ -1,95 +1,99 @@
-#include <bits/stdc++.h>
-#include <unordered_map>
-#include <unordered_set>
-
+#include <iostream>
 using namespace std;
 
-#define ii pair<int, int>
-#define ll long long
-#define vi vector<int>
-#define vc vector<char>
-#define vii vector<ii>
-#define pb push_back
-#define rz resize
-#define mp make_pair
-#define ff first
-#define ss second
+typedef pair<int, int> ii;
 
-#define FOR(n) for (int i = 0; i < n; i++)
-#define FOR1(n) for (int i = 1; i <= n; i++)
-#define RFOR(n) for (int i = n - 1; i >= 0; i--)
-#define DFOR(n, m) FOR(n) for (int j = 0; j < m; j++)
+int dx[4] = {-1, 0, 1, 0};
+int dy[4] = {0, -1, 0, 1};
 
-int dx[4] = {1, 0, -1, 0}; 
-int dy[4] = {0, 1, 0, -1};
-int ddx[8] = {1, 0, -1, -1, -1, 0, 1, 1};
-int ddy[8] = {1, 1, 1, 0, -1, -1, -1, 0};
+const int N = 110;
+int n, k, r;
+int g[N][N];
+bool visited[N][N];
+ii cows[N];
 
-const int MAX = 101;
-int grid[MAX][MAX];
-int N, K, R;
-bool visited[MAX][MAX];
-set<pair<ii, ii> > roads;
+int p[N * N];
 
-
-bool valid(int oldX, int oldY, int newX, int newY) {
-    return roads.find(make_pair(make_pair(oldX, oldY), make_pair(newX, newY))) == roads.end();
+int find(int x) {
+    if (x != p[x]) p[x] = find(p[x]);
+    return p[x];
 }
 
-void floodfill(int r, int c, int color) {
-    if (r < 1 || r > N|| c < 1 || c > N || visited[r][c]) {
-        return;
-    }
-
-    visited[r][c] = true;
-    grid[r][c] = color;
+void floodfill(int x, int y) {
+    if (x < 1 || x > n || y < 1 || y > n || visited[x][y]) return;
+    visited[x][y] = true;
 
     for (int i = 0; i < 4; i++) {
-        int newX = r + dx[i];
-        int newY = c + dy[i];
-        if (valid(r, c, newX, newY)) {
-            floodfill(newX, newY, color);
-        }
+        int nx = x + dx[i], ny = y + dy[i];
+        if (nx >= 1 && nx <= n && ny >= 1 && ny <= n && !visited[nx][ny])
+            if (((g[x][y] >> i) & 1) == 0) {
+                int a = (x - 1) * n + y;
+                int b = (nx - 1) * n + ny;
+                p[find(b)] = find(a);
+                floodfill(nx, ny);
+            }   
     }
+
 }
 
 int main() {
     freopen("countcross.in", "r", stdin);
     freopen("countcross.out", "w", stdout);
+    for (int i = 0; i < N * N; i++) p[i] = i;
+    cin >> n >> k >> r;
+    for (int i = 0; i < r; i++) {
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
 
-    cin >> N >> K >> R;
-
-    for (int i = 0; i < R; i++) {
-        int X1, Y1, X2, Y2;
-        cin >> X1 >> Y1 >> X2 >> Y2;
-
-        roads.insert(make_pair(make_pair(X1,Y1), make_pair(X2, Y2)));
-        roads.insert(make_pair(make_pair(X2,Y2), make_pair(X1, Y1)));
-    }
-
-    vector<pair<int, int> > cows(K);
-
-    for (int i = 0; i < K; i++) {
-        cin >> cows[i].ff >> cows[i].ss;
-    }
-
-    int colors = 0;
-    for (int i = 0; i < K; i++) {
-        if (! visited[cows[i].ff][cows[i].ss]) {
-            colors++;
-            floodfill(cows[i].ff, cows[i].ss, colors);
+        //1 west, 2 east
+        if (x1 == x2 && y1 < y2) {
+            g[x1][y1] |= 1 << 3;
+            g[x2][y2] |= 1 << 1;
         }
+
+        //1 east, 2 west
+        if (x1 == x2 && y1 > y2) {
+            g[x1][y1] |= 1 << 1;
+            g[x2][y2] |= 1 << 3;
+        }
+
+        //1 north, 2 south
+        if (y1 == y2 && x1 < x2) {
+            g[x1][y1] |= 1 << 2;
+            g[x2][y2] |= 1 << 0;
+        }
+
+        //1 south, 2 north
+        if (y1 == y2 && x1 > x2) {
+            g[x1][y1] |= 1 << 0;
+            g[x2][y2] |= 1 << 2;
+        }
+
     }
 
+    /*for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) 
+            cout << g[i][j] << " ";
+        cout << endl;
+    }*/
+
+    for (int i = 0; i < k; i++) 
+        cin >> cows[i].first >> cows[i].second;
+    
+    for (int i = 1; i <= n; i++) 
+        for (int j = 1; j <= n; j++) 
+            if (!visited[i][j])
+                floodfill(i, j);
+    
     int ans = 0;
-    for (int i = 0; i < K; i++) {
+    for (int i = 0; i < k; i++) {
         for (int j = 0; j < i; j++) {
-            if (grid[cows[i].ff][cows[i].ss] != grid[cows[j].ff][cows[j].ss]) {
-                ans++;
-            }
+            int a = (cows[i].first - 1) * n + cows[i].second;
+            int b = (cows[j].first - 1) * n + cows[j].second;
+            if (find(a) != find(b)) ans++;
         }
     }
+    cout << ans << endl;
 
-    cout << ans;
-    return 0;
 }
+

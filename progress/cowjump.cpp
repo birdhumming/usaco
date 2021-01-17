@@ -76,6 +76,16 @@ int main() {
     }
 
     if (crosses(lines[0], lines[1])) cout << "true\n";
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) 
+        for (int j = 0; j < i; i++) {
+            line a = lines[i];
+            line b = lines[j];
+            if (crosses(a, b)) {
+                
+            }
+        }
     else cout << "false\n";
 
 }

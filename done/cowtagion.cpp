@@ -2,8 +2,7 @@
 using namespace std;
 
 const int N = 1e5 + 10;
-int n;
-int children[N];
+int n, children[N];
 
 int solve(int x) {
     int num = 1, ans = 0;
