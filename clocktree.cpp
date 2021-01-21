@@ -23,15 +23,18 @@ bool check(int u) {
     }
 
     int sum = 0;
+    int a, b;
     for (int i = 1; i <= n; i++) {
-        if (dist[i] % 2) sum += set[i];
-        else sum -= set[i];
+        if (dist[i] % 2) sum += set[i], a++;
+        else sum -= set[i], b++;
     }
 
     cout << "sum = " << sum << endl;
 
     sum = abs(sum);
-    if (sum % 12 == 0 || sum % 12 == 1) return true;
+
+    if ()
+    if (sum + a % 12 == 0 || sum + b % 12 == 1) return true;
 
     return false;
 }
