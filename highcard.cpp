@@ -1,26 +1,18 @@
 #include <iostream>
-#include <cstdlib>
-#include <cstdio>
-#include <cmath>
 #include <vector>
-#include <queue>
-#include <map>
-#include <unordered_map>
-#include <set>
-#include <unordered_set>
-#include <stack>
-#include <string>
-#include <cstring>
-#include <algorithm>
 using namespace std;
 typedef pair<int, int> ii;
 
 int n;
 vector<int> e, b;
 
+bool cmp(int a, int b) {
+    if (e[a] )
+}
+
 int main() {
-    freopen("highcard.in", "r", stdin);
-    freopen("highcard.out", "w", stdout);
+    //freopen("highcard.in", "r", stdin);
+    //freopen("highcard.out", "w", stdout);
 
     scanf("%d", &n);
     e.resize(n), b.resize(n);
@@ -31,6 +23,7 @@ int main() {
         int x; scanf("%d", &x);
         used[x] = 1;
         e[i] = x;
+        
     }
 
     //sort(e.begin(), e.end());
