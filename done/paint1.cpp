@@ -8,6 +8,18 @@ int n, q;
 string s;
 bool seen[30];
 int s1[N], s2[N];
+//s1[i] = number of strokes it takes to paint the fence from 1-i
+//s2[i] = number of strokes it takes to paint the fence from i - n
+
+//ABBAABCB
+//AAAAAAAA 1
+//ABBAABBB 2
+//ABBAABCB 1
+//3 6
+//1 2    7 8
+
+//1 4
+//1 1    5 8
 
 
 int main() {
