@@ -4,6 +4,18 @@ using namespace std;
 const int N = 1010;
 int n, g[N][N];
 
+/*
+c.cc
+.c..
+c.cc
+.c..
+
+c.c.
+.c.c
+c.c.
+.c.c
+*/
+
 int main() {
     cin >> n;
     for (int i = 0; i < n; i++)

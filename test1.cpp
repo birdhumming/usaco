@@ -1,40 +1,79 @@
-#include <bits/stdc++.h> 
-using namespace std; 
+#include <bits/stdc++.h>
+#include <unordered_map>
+using namespace std;
 
-const int N = 110;
-int n, a[N];
-int s[N][N];
+typedef long long ll;
+typedef pair<int, int> ii;
 
- bool check(int x) {
-    return a[x] < 8;
+int n;
+unordered_map<string, int> year;
+unordered_map<string, int> track;
+unordered_map<string, string> cow_year;
+
+void init() {
+    year["Ox"] = 0;
+    year["Tiger"] = 1;
+    year["Rabbit"] = 2;
+    year["Dragon"] = 3;
+    year["Snake"] = 4;
+    year["Horse"] = 5;
+    year["Goat"] = 6;
+    year["Monkey"] = 7;
+    year["Rooster"] = 8;
+    year["Dog"] = 9;
+    year["Pig"] = 10;
+    year["Rat"] = 11;
+    cow_year["Bessie"] = "Ox";
 }
 
 int main() {
+    init();
     cin >> n;
 
-    int x1, y1, x2, y2;
-    //rectangle with upper left (x1, y1) and lower right (x2, y2)
     for (int i = 0; i < n; i++) {
-        cin >> x1 >> y1 >> x2 >> y2;
-        x1++, y1++, x2++, y2++; //only do if 0 is possible
-        
-        s[x1 - 1][y1 - 1]++;
-        s[x2][y2]++;
-        
-        s[x1 - 1][y2]--;
-        s[x2][y1 - 1]--;
-    }
+        string s;
+        int j = 1;
+        string cow1, cow2, yr1, yr2;
+        bool prev = false;
+        while (j <= 8) {
+            cin >> s;
+            if (j == 1) cow1 = s;
+            if (j == 8) cow2 = s;
+            if (j == 4) {
+                if (s == "previous") prev = true;
+            }
+            if (j == 5) yr1 = s;
+            j++;
+        }
+        cow_year[cow1] = yr1;
+        //cout << "i = " << i << endl;
+        yr2 = cow_year[cow2];
 
-    //prefix sum
-    for (int i = 1; i < N; i++) { //N is max x
-        for (int j = 1; j < N; j++) { //M is max y
-            s[i][j] += (s[i - 1][j] + s[i][j - 1] - s[i - 1][j - 1]);
+        if (prev) {
+            int num = 0;
+            if (year[yr2] < year[yr1])
+                num = 12 - year[yr1] + year[yr2];
+            else {
+                num = year[yr2] - year[yr1];
+            }
+            //cout << "Nu =" << num << endl;
+            num *= -1;
+            track[cow1] = track[cow2] + num;
+        }
+        else {
+            int num = 0;
+            if (year[yr1] < year[yr2])
+                num = 12 - year[yr2] + year[yr1];
+            else {
+                num = year[yr1] - year[yr2];
+            }
+            //cout << "Num = " << num << endl;
+            track[cow1] = track[cow2] + num;
         }
     }
 
-    for (int i = 1; i <= 20; i++) {
-        for (int j = 1; j <= 20; j++) 
-            cout << s[i][j] << " ";
-        cout << endl;
+    for (auto t : track) {
+        //cout << t.first << " " << t.second << endl;
     }
+    cout << abs(track["Elsie"]) << endl;
 }
