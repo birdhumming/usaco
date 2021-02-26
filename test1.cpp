@@ -50,10 +50,10 @@ int main() {
         yr2 = cow_year[cow2];
 
         if (prev) {
-            int num = 0;
+            int num = 12;
             if (year[yr2] < year[yr1])
                 num = 12 - year[yr1] + year[yr2];
-            else {
+            else if (year[yr2] > year[yr1]) {
                 num = year[yr2] - year[yr1];
             }
             //cout << "Nu =" << num << endl;
@@ -61,10 +61,10 @@ int main() {
             track[cow1] = track[cow2] + num;
         }
         else {
-            int num = 0;
+            int num = 12;
             if (year[yr1] < year[yr2])
                 num = 12 - year[yr2] + year[yr1];
-            else {
+            else if (year[yr1] > year[yr2]) {
                 num = year[yr1] - year[yr2];
             }
             //cout << "Num = " << num << endl;
