@@ -907,108 +907,92 @@ int main()
 }
 
 //3 value sort - swap count 
-//hard graph with cycle counting
+
+//O(n) complexity same idea as official solution at 
+// https://train.usaco.org/usacoanal2?a=EN7lp93YoKz&S=sort3
+
+//graph with cycle counting - kind of hard to think of 
+
+
+/*
+先将数组排序得到最终的序列，由当前数组与最终数组之间的位置占用关系建图，如原本一个位置要放1，但是放了2，就增加一条2到1的边，由此得到由当前数组变换到最终数组的映射图， 如图:
+
+观察该图可发现：
+每把一个数字放到另一个位置，必然会有一个其他的数放到当前位置，所以该图的每一个节点必然有入度等于出度，所以该图是欧拉图
+每当一个数放在了正确的位置上，就会出现一个自环，所以最终的结果是n个数就有n个环。对于每个不是自环的环，都可以通过交换相应位置上的数拆成自环，所以要想使交换次数最少，就要找到图中最多的环的个数m，找到后最优解即为n - m，所以问题就变成了如何找该图中最多环的个数。
+如何找最多的环？
+首先，最优解一定不同时包含正向大环和逆向大环，因为这种情况我们都可以把它看成更多的小环，然后按照如下过程找环:
+1. 自环直接加到答案上
+2. 再从两个节点形成的环开始找起，为：min(e[i][j], e[j][i]), 边找边去除，同时加到答案上
+3. 将两个节点的环去掉后最终一定剩下完整大环或者没有大环，因为该图为欧拉图，每次都是成对去除一个节点的入度出度，最终一定不存在入度出度之和为奇数的节点，答案只需加上任意两节点之间边的个数即可：m += e[1][2] + e[2][1]
+
+*/
 
 const int N = 1010;
-int n;
-int a[N], b[N];
+
+int n, m;
+int a[N], b[N], s[4];
+
 int main()
 {
     cin >> n;
-    int s[4] = {0};
+
     for(int i = 0; i < n; i ++)
     {
         cin >> a[i];
-        s[a[i]] ++ ;
+        s[a[i]]++;
     }
-    for(int i = 1, k = 0; i <= 3; i ++)
-        for(int j = 0; j < s[i]; j ++)
-            b[k ++] = i;
+//original sequence is in a[i], with each digit counts in s[a[i]]
+//s[1] of 1's
+//s[2] of 2's
+//s[3] of 3's
+
+    //count sort with complexity O(n)
+    //get a sorted result of sequence in b[k]
+    //b[k] is made up of:
+    //first s[1] of 1's
+    //then s[2] of 2's
+    //and s[3] of 3's   
+
+    for(int i = 1, k = 0; i <= 3; i++)
+        for(int j = 0; j < s[i]; j++)
+            b[k++] = i;
+
+    //set up graph 
+    //edges array
+
     int e[4][4] = {0};
-    for(int i = 0; i < n; i ++) e[a[i]][b[i]] ++ ;
-    int m = 0;
-    for(int i = 1; i <= 3; i ++) m += e[i][i];
-    for(int i = 1; i <= 3; i ++)  
-        for(int j = i + 1; j <= 3; j ++)
-        {
-            int t = min(e[i][j], e[j][i]);
-            m += t;                                                                                                                                     
-            e[i][j] -= t, e[j][i] -= t;
-        }
+    for(int i = 0; i < n; i++) e[a[i]][b[i]]++;
+
+    //self cycles count size 1 circles:
+    //self pointing edges gives that number easily
+    for(int i = 1; i <= 3; i++) m += e[i][i];
+
+    //count size 2 circles
+    //size 2 circles is mixed with size 3 circles, but the lesser value of e[i][j]
+    //and e[j][i] gives the number of size-2 circles
+    for(int i = 1; i <= 3; i++)
+        for(int j = i + 1; j <= 3; j++)
+            {
+                int t = min(e[i][j], e[j][i]);
+                e[i][j] -= t, e[j][i] -= t;
+                m += t;
+            }
+
+    //count size 3 circles
+    //only need to count 2 sides, one of them must be zero but don't know which one
     m += e[1][2] + e[2][1];
-    cout << n - m << endl;
+    //take those circles out and what's left is the number of swaps needed
+
+    //any of those circles won't need a swap:
+    cout << n - m;
+
     return 0;
 }
 
-作者：cht
-链接：https://www.acwing.com/activity/content/code/content/1377023/
+作者：LywockeeZ
+链接：https://www.acwing.com/solution/content/19822/
 
-//
-const int N = 1010;
-int a[N], b[N];
-int n, m;
-int main() {
-    cin >> n;
-    for (int i = 0; i < n; i++) cin >> a[i];
-    memcpy(b, a, sizeof b);
-    sort(b, b + n);
-    int e[4][4] = {0};
-    for (int i = 0; i < n; i++)
-        e[a[i]][b[i]] ++ ;
-    for (int i = 1; i <= 3; i++) m += e[i][i];
-    for (int i = 1; i <= 3; i++)
-        for (int j = i + 1; j <= 3; j++) {
-            int t = min(e[i][j], e[j][i]);
-            m += t, e[i][j] -= t, e[j][i] -= t;
-        }
-    m += e[1][2] + e[2][1];
-    cout << n - m << endl;
-    return 0;
-}
-
-作者：icebreaker
-链接：https://www.acwing.com/activity/content/code/content/2097397/
-
-//
-
-
-
-const int N = 1010;
-
-int n;
-int a[N], b[N];
-
-int main()
-{
-    cin >> n;
-    int s[4] = {0};
-    for (int i = 0; i < n; i ++ )
-    {
-        cin >> a[i];
-        s[a[i]] ++ ;
-    }
-    for (int i = 1, k = 0; i <= 3; i ++ )
-        for (int j = 0; j < s[i]; j ++ )
-            b[k ++ ] = i;
-
-    int e[4][4] = {0};
-    for (int i = 0; i < n; i ++ )
-        e[a[i]][b[i]] ++ ;
-
-    int m = 0;
-    for (int i = 1; i <= 3; i ++ ) m += e[i][i];
-    for (int i = 1; i <= 3; i ++ )  
-        for (int j = i + 1; j <= 3; j ++ )
-        {
-            int t = min(e[i][j], e[j][i]);
-            m += t;
-            e[i][j] -= t, e[j][i] -= t;
-        }
-    m += e[1][2] + e[2][1];
-    cout << n - m << endl;
-
-    return 0;
-}
 
 //
 
@@ -1065,7 +1049,7 @@ int main()
 
 
 //hamming distance, XOR
-//easy dfs, brutal force complete search - don't use greedy
+//dfs, brutal force complete search - don't use greedy
 //
 
 const int N = 256;
@@ -1088,7 +1072,7 @@ bool dfs(int u, int start)
         for (int i = 0; i < n; i ++ )
         {
             cout << path[i];
-            if ((i + 1) % 10) cout << ' ';
+            if ((i + 1) % 10) cout << ' '; //output 10 one line
             else cout << endl;
         }
         return true;
@@ -1096,37 +1080,103 @@ bool dfs(int u, int start)
 
     for (int i = start; i < 1 << b; i ++ )
     {
-        bool flag = true;
+        bool flag = true; //this line can't be out of for loop
+        //
+        //try to check all previous codes will work with i;
         for (int j = 0; j < u; j ++ )
             if (!g[i][path[j]])
             {
                 flag = false;
                 break;
             }
+        //i is a valid code for current u
         if (flag)
         {
             path[u] = i;
             if (dfs(u + 1, i + 1)) return true;;
         }
     }
+
+    //restore site before recursion
     return false;
 }
 
 int main()
 {
+    //establish graph first
     cin >> n >> b >> d;
     for (int i = 0; i < 1 << b; i ++ )
         for (int j = 0; j < 1 << b; j ++ )
-            if (get_ones(i ^ j) >= d)
+            if (get_ones(i ^ j) >= d) //hamming distance >=d
                 g[i][j] = true;
 
-    dfs(1, 1);
+    dfs(1, 1);   //brutal search; 0 must be in already, so start with one!
     return 0;
 }
 
 // hamming code above end of section 2.1
 //stop here 12/14/21
 
+
+
+//easier to understand roma code:
+
+//下面的列表分别为个，十，百，千位为1~9的罗马数字的表示方法
+//可以发现这个序列存在一定的规律
+//每一行只需要三个字母（最小字母，中等字母，最大字母），并且这三个字母的出现次数是相同的
+//I II III IV V VI VII VIII IX 第一行的最小字母为I,中等字母为V,最大字母为X,
+//X XX XXX XL L LX LXX LXXX XC 最小为X,中等为L,最大为C
+//C CC CCC CD D DC DCC DCCC CM 最小为C,中等为D,最大为M
+//M MM MMM 
+
+char ch[] = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+//ans存的是罗马字母总的出现次数
+int ans[7];
+//cnt数组存的是数字1~9分别所需要的最小、中等、最大字母的个数
+int cnt[10][3] = {
+             //比如下方的
+             //{1, 0, 0}表示的是1(数组cnt的行下标)需要最小字母1个，中等0个，最大0个
+    {0, 0, 0},{1, 0, 0},{2, 0, 0},{3, 0, 0},{1, 1, 0},{0, 1, 0},{1, 1, 0},{2, 1, 0},
+    {3, 1, 0},{1, 0, 1}
+};
+
+//分解数字的每一位，把需要的罗马数字加到ans数组中去
+void add(int x){
+    //d为偏移量，为什么我们需要一个偏移量？
+    //比如数字11，我们可以把他分解为个位上的1 + 十位上的1
+    //那么当我们处理完个位上的1之后，我们需要将我们的最小、中等、字母更新
+    //处理个位时，这三个字母分别为'I' 'V' 'X'，处理百位时应该为'X' 'L' 'C'......以此类推
+    //我们发现每个字母的下标偏移量为2
+    int d = 0;
+    while (x){
+        for (int i = 0; i < 3; ++i){
+            //分别计算最小、中等、最大字母的出现次数
+            ans[i + d] +=  cnt[x % 10][i];
+        }
+        d += 2;
+        x /= 10;
+    }
+}
+
+
+int main()
+{
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+        add(i);
+
+    for (int i = 0; i < 7; ++i)
+        if (ans[i]) printf("%c %d\n",ch[i],ans[i]);
+
+
+    return 0;
+}
+
+作者：kyo
+链接：https://www.acwing.com/solution/content/30992/
+
+//not so good yxc roma code
 int n;
 
 int main()
@@ -1188,10 +1238,119 @@ int main()
     return 0;
 }
 
-//
+//runaround number
+
+//run around - best solution
+const int M = 10;
+int n, used[M], cnt[M];
+
+bool check(int i)
+{
+    string path = to_string(i);
+    memset(used, 0, sizeof used);
+    memset(cnt, 0, sizeof cnt);
+    for (int i = 0, j = 0; i < path.size(); i ++ )
+    {
+        j += path[j] - '0';
+
+        j %= path.size();
+        if (cnt[path[j] - '0']) return false; //digit already used?
+        cnt[path[j] - '0']++;
+        if (used[j]) return false; //j digit appear again
+        used[j] = true;
+        //how does this guarantee returning to same digit?
+    }
+
+    return true;
+}
+
+int main() {
+    cin >> n;
+    for (int i = n + 1; ; i++) {
+        if (check(i)) {
+            cout << i << endl;
+            break;
+        }
+    }
+}
+
+//runaround number - easier too long
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int n;
+int num[10]; 
+int book[10];//用来标记这个数字循环了几次 
+
+int main() {
+    cin >> n;
+    for(int i = n + 1; ; i++)//从输入的数的后一个开始查找 
+    {
+        memset(book, 0, sizeof book);//开始将标记设为零 
+        int len = log10(i) + 1;//计算该数的位数 
+        int t = i; 
+        int flat = 0, glat = 0, hlat=0;
+        for(int j = 1; j <= len; j ++)//将这个数分解并存入num数组中 
+        {
+            num[j] = t / pow(10, len - j);
+            if(num[j] == 0)//如果这个数中有零直接结束再寻找下一个 
+            {
+                flat =  1;
+                break;
+            }
+            t = t % int(pow(10, len - j));
+        }
+        for(int p = 1; p < len; p ++)//检查这个数组中是否有相等的数 
+            for(int q = p + 1; q <= len; q ++)
+                if(num[p] == num[q]) //如果有直接结束再寻找下一个 
+                {
+                    flat = 1;
+                    break;
+                }
+        if(flat == 0)//如果不含零或相等的元素，就进行下一步判断 
+        {
+        int k = 1;
+        book[k] = 1;//从头开始判断并标记 
+        while(1)
+        {
+            //找他的下一个数并标记 
+            if(num[k]%len + k <= len) 
+            k = num[k] % len + k;
+            else
+            k = (num[k] % len + k) % len;
+            book[k] += 1; 
+            for(int o = 1; o <= len; o ++)
+                if(book[o] == 2)//如果有一个数循环了两次就结束 
+                {
+                    hlat=1;
+                    break;
+                }
+
+            if(hlat == 1)
+            break;
+        }
+        for(int l = 1; l < len; l ++)//如果循环两次的不是第一个数或者有的数没有循环到就不符合条件 
+            if(book[1] != 2 || book[l + 1] != 1) glat = 1;
+
+        if(glat == 0)//符合条件就输出 
+            for(int m = 1; m <= len; m ++)
+            printf("%d",num[m]);
+
+        }
+        if(flat == 0 && glat == 0)//不符合条件就找下一个数 
+        break;
+    }
+ } 
+
+作者：a4199
+链接：https://www.acwing.com/solution/content/5598/
 
 
 
+
+
+//yxc roundaround - not so easy
 const int N = 10;
 
 int m, ans = 1e9;
@@ -1226,7 +1385,7 @@ void dfs()
             st[i] = true;
             path += i + '0';
             dfs();
-            path.pop_back();
+            path.pop_back(); //restore site
             st[i] = false;
         }
 }
@@ -1240,8 +1399,10 @@ int main()
     return 0;
 }
 
-//
+//above runaround number
 
+//
+//party lamp
 
 int state[8][6] = {
     {1, 1, 1, 1, 1, 1},  // 无
@@ -6411,7 +6572,6 @@ int main()
     cout << ans << endl;
     return 0;
 }
-
 
 
 
