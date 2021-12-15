@@ -1,3 +1,4 @@
+```
 // usaco training problems - all solutions as sample code
 
 //always consider pre-processing if it makes things faster/eaiser later
@@ -6356,3 +6357,4 @@ int main()
     return 0;
 }
 
+```
