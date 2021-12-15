@@ -1,9 +1,10 @@
-# usaco
-usaco problem solutions as sample code
+// usaco training problems - all solutions as sample code
 
-```
-//https://train.usaco.org/usacoprob2?a=8yeoA2u5MpB&S=milk2
+//always consider pre-processing if it makes things faster/eaiser later
+//pre-processing everything possible
+//pre-processing with prefix sum
 
+//section 1 - simulation 
 
 //segments merge algorithm
 //intervals merge
@@ -43,6 +44,7 @@ int main()
 
 //https://train.usaco.org/usacoprob2?a=8yeoA2u5MpB&S=transform
 
+//character matrix rotation and mirroring
 
 //use vector string for matrix rotations and mirroring
 //rotate = diagonal swap + mirroring
@@ -102,6 +104,7 @@ int main()
 
 //https://train.usaco.org/usacoprob2?a=8yeoA2u5MpB&S=namenum
 
+//simulation of old-styled phone dialpad
 
 int get(char c)
 {
@@ -459,7 +462,7 @@ void dfs(int u)
                             
 
             }
-            break;
+            break; //break out of i-loop
 
         }
 
@@ -628,7 +631,8 @@ int main()
 }
 
 //
-
+//simple DP to find max value path for number triangle
+//bottom up is easier for transition equation 
 
 const int N = 510;
 
@@ -697,8 +701,8 @@ int main()
     return 0;
 }
 
+//prime number check - check if it's a prime number,  not sieving
 //
-
 
 
 int n;
@@ -726,7 +730,7 @@ void dfs(int x, int k)
 int main()
 {
     cin >> n;
-    dfs(2, 1), dfs(3, 1), dfs(5, 1), dfs(7, 1);
+    dfs(2, 1), dfs(3, 1), dfs(5, 1), dfs(7, 1); //only start with primes
     return 0;
 }
 
@@ -749,7 +753,7 @@ const int N = 55, M = N * N;
 
 int n, m;
 int g[N][N];
-int p[M], sz[M];
+int p[M], sz[M]; //union find parents
 
 int find(int x)
 {
@@ -764,12 +768,15 @@ int main()
         for (int j = 0; j < m; j ++ )
             cin >> g[i][j];
 
+//initialize every grid point room first
     for (int i = 0; i < n * m; i ++ )
     {
         p[i] = i;
         sz[i] = 1;
     }
 
+    //wall to north, wall to east
+    //room above, and root to the east
     int dx[2] = {-1, 0}, dy[2] = {0, 1}, dw[2] = {2, 4};
     int cnt = n * m, max_area = 1;
     for (int i = 0; i < n; i ++ )
@@ -821,28 +828,9 @@ int main()
 }
 
 //
-const int N = 170;
-int n;
-void dfs(int a, int b, int c, int d) {
-    if (b + d > n) return;
-    dfs(a, b, a + c, b + d);
-    cout << (a + c) << "/" << (b + d) << endl;
-    dfs(a + c, b + d, c, d);
-}
-int main() {
-    cin >> n;
-    puts("0/1");
-    dfs(0, 1, 1, 1);
-    puts("1/1");
-    return 0;
-}
-
-作者：icebreaker
-链接：https://www.acwing.com/activity/content/code/content/2100218/
-
-https://en.wikipedia.org/wiki/Stern%E2%80%93Brocot_tree
-
-//easy one
+//easy one if you know stern-brocot tree
+//stern brocot tree to print out fractions in the order of their values
+//with in-order traversal and dfs recursion
 
 int n;
 
@@ -970,7 +958,7 @@ int main()
 //
 
 //holstein - already done
-
+//binary compression representation
 
 
 const int N = 15, M = 25;
@@ -6368,5 +6356,3 @@ int main()
     return 0;
 }
 
-//
-```
