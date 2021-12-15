@@ -7,6 +7,60 @@
 
 //section 1 - simulation 
 
+//circle to string and string duplicate concatenation, color OR flags
+//clever simulation
+
+int r1b2(char c)
+{
+    if(c=='r')return 1;
+    return 2;
+}
+
+int main()
+{
+    int n; cin>>n;
+    string s; cin>>s;
+    //cin>>s2;
+    //for (int i=0;i<n;i++)s2[i+n]=s2[i];
+    
+    string s2=s+s;
+    
+    int res=0;
+
+    for (int i=0;i<n;i++)
+    {
+        int left=0, right=0;//flags for r1 b2; w0
+        int l=i, r=i+n-1; //pointers for left and right positons;
+        int cnt=0;
+        //s[i] left to right;
+        //cout<<"at start"<<" l is "<<l<<" r is "<<r<<endl;
+        while(l<=r && (s2[l]=='w' || (left | r1b2(s2[l]))!=3 ))
+        {
+            if(s2[l]!='w')left|=r1b2(s2[l]); //this line must be before l++!!!!
+            cnt++;
+            l++; 
+        }
+        
+        
+        //s[i+n-1] right to left;
+        
+        while(l<=r && (s2[r]=='w' || (right | r1b2(s2[r]))!=3))
+        {
+            if(s2[r]!='w')right|=r1b2(s2[r]);  //this line must be before r--!!!!
+            
+            cnt++;
+            r--;   
+        }
+        //cout<<"cnt is "<<cnt<<" l is "<<l<<" r is "<<r<<endl;
+        
+        res=max(res,cnt);
+    }
+    //cout<<s2<<endl;
+    cout<<res<<endl;
+    
+    return 0;
+}
+
 //segments merge algorithm
 //intervals merge
 
@@ -1071,6 +1125,7 @@ int main()
 }
 
 // hamming code above end of section 2.1
+//stop here 12/14/21
 
 int n;
 
@@ -6356,5 +6411,9 @@ int main()
     cout << ans << endl;
     return 0;
 }
+
+
+
+
 
 ```
