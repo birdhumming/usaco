@@ -1115,11 +1115,10 @@ int main()
 }
 
 // hamming code above end of section 2.1
-//stop here 12/14/21
 
 
 
-//easier to understand roma code:
+//easier to understand roman code:
 
 //下面的列表分别为个，十，百，千位为1~9的罗马数字的表示方法
 //可以发现这个序列存在一定的规律
@@ -1258,7 +1257,8 @@ bool check(int i)
         cnt[path[j] - '0']++;
         if (used[j]) return false; //j digit appear again
         used[j] = true;
-        //how does this guarantee returning to same digit?
+        //how does this guarantee returning to same digit
+        //this code does work and passed all tests
     }
 
     return true;
