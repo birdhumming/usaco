@@ -1,3 +1,5 @@
+# OLD SOLUTIONS - FOR NEW ONES CHECK PRIVATE REPO
+
 ```
 // usaco training problems - all solutions as sample code
 
